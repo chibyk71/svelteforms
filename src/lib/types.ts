@@ -116,7 +116,7 @@ export interface IField<T extends string = 'input' | 'date' | 'textarea' | 'sele
     /**
      * Optional field label or description (text or object).
      */
-    description?: string | { text: string; tooltip?: string };
+    description?: string | string[];
 
     /**
      * Optional prefix icon/component rendered before the input.
@@ -138,6 +138,11 @@ export interface IField<T extends string = 'input' | 'date' | 'textarea' | 'sele
      */
     extra?: Record<string, any>;
 }
+
+export type IFieldProps = IField & {
+    isInvalid: boolean;
+    float?: boolean;
+};
 
 /**
  * Generic form field attributes, narrowed by field type.
@@ -253,13 +258,6 @@ interface FileAttributes extends BaseAttributes {
 export interface AutoCompleteItems {
     title: string;
     value: any;
-}
-
-export interface Description {
-    tag: string;
-    classes?: string[];
-    text: string;
-    tooltip?: string;
 }
 
 export interface IPrefix {

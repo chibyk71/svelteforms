@@ -1,6 +1,7 @@
 <script lang="ts">
-	import type { IField } from '$lib/types.js';
+	import type { IFieldProps } from '$lib/types.js';
 	import Label from './Label.svelte';
+	import Message from './Message.svelte';
 
 	let {
 		type,
@@ -14,7 +15,7 @@
         suffix,
 		float = false,
 		...restProps
-	}: IField & { float: boolean } = $props();
+	}: IFieldProps = $props();
 
 	const id = name || `field-${Math.random().toString(36).substr(2, 9)}`;
 
@@ -43,6 +44,10 @@
             <span class="absolute left-2 top-1/2 transform -translate-y-1/2 text-slate-400">
                 {@render prefix()}
             </span>
+        {/if}
+        
+        {#if description}
+            <Message message={description} {isInvalid} />
         {/if}
 	</div>
 </div>
