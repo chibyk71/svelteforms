@@ -25,6 +25,14 @@
 	<Label {id} {label} {float} />
 
 	<div class="relative">
+
+        {#if suffix}
+            <span class="absolute right-2 top-1/2 transform -translate-y-1/2 text-slate-400">
+                {@render suffix()}
+            </span>
+        {/if}
+
+        <!-- TODO: replace with the appropriate input type -->
 		<input
 			type="email"
 			class="ease w-full rounded-md border border-slate-200 bg-transparent py-2 pr-3 pl-20 text-sm text-slate-700 shadow-sm transition duration-300 placeholder:text-slate-400 hover:border-slate-300 focus:border-slate-400 focus:shadow focus:outline-none"
@@ -36,11 +44,5 @@
                 {@render prefix()}
             </span>
         {/if}
-		<button
-			class="absolute top-1 left-1 rounded border border-transparent bg-slate-800 px-2.5 py-1 text-center text-sm text-white shadow-sm transition-all hover:bg-slate-700 hover:shadow focus:bg-slate-700 focus:shadow-none active:bg-slate-700 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-			type="button"
-		>
-			Search
-		</button>
 	</div>
 </div>
