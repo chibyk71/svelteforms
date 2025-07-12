@@ -1,5 +1,6 @@
 <script lang="ts">
-	import type { IFieldProps } from '$lib/types.js';
+	import { getComponent } from '$lib/componentRegistry.svelte.js';
+import type { IFieldProps } from '$lib/types.js';
 	import Label from './Label.svelte';
 	import Message from './Message.svelte';
 	import Spinner from './Spinner.svelte';
@@ -23,6 +24,8 @@
 	const id = name || `field-${Math.random().toString(36).substr(2, 9)}`;
 
 	label = label || name.charAt(0).toUpperCase() + name.slice(1).replace(/_/g, ' ');
+
+    const InputComponent = getComponent(type);
 </script>
 
 <div class="relative w-full max-w-sm min-w-[200px] [not:first-child]:mt-4">
@@ -40,6 +43,7 @@
         {/if}
 
         <!-- TODO: replace with the appropriate input type -->
+        <InputComponent
 		
 
         {#if prefix}

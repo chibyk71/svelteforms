@@ -1,5 +1,6 @@
 import type { InertiaForm } from '@inertiajs/svelte';
 import type { Snippet, } from 'svelte';
+import type { FullAutoFill } from 'svelte/elements';
 import type { Writable } from 'svelte/store';
 
 export type IForm = Writable<InertiaForm<Record<string, any>>>
@@ -168,12 +169,7 @@ interface BaseAttributes {
     /**
      * Unique DOM ID.
      */
-    id: string;
-
-    /**
-     * Label text to be displayed.
-     */
-    label?: string;
+    id?: string;
 
     /**
      * Optional placeholder.
@@ -183,7 +179,7 @@ interface BaseAttributes {
     /**
      * Extra classes for styling.
      */
-    classes?: string[];
+    class?: string[];
 
     /**
      * Disable the field.
@@ -198,12 +194,12 @@ interface BaseAttributes {
     /**
      * Optional autocomplete behavior.
      */
-    autocomplete?: string;
+    autocomplete?: FullAutoFill | null | undefined;
 
     /**
      * Optional autocorrect setting (for mobile).
      */
-    autocorrect?: string;
+    autocorrect?: "" | "off" | "on" | null | undefined;
 
     /**
      * Spellcheck toggle.
