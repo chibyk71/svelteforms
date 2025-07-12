@@ -16,12 +16,15 @@ export type FieldType =
 /** Type for dynamic import of Svelte components */
 export type FieldComponentMap = Record<
     FieldType,
-    () => Promise<{ default: typeof SvelteComponent }>
+    () => Promise<{ default: typeof SvelteComponent<any> }>
 >;
+
+const asSvelteComponent = <T extends typeof SvelteComponent>(component: any) =>
+  component as { default: T };
 
 /** Default component map */
 const defaultComponentMap: FieldComponentMap = {
-    // input: () => import('./fields/Input.svelte'),
+    input: () => import('./components/fields/Input.svelte').then(asSvelteComponent),
     // textarea: () => import('./fields/Textarea.svelte'),
     // select: () => import('./fields/Select.svelte'),
     // checkbox: () => import('./fields/Checkbox.svelte'),
@@ -49,7 +52,7 @@ export function setComponentMap(customMap: Partial<FieldComponentMap>) {
  * Get the component loader for a given field type.
  * @param type - Field type to load component for
  */
-export function getComponent(type: FieldType): Promise<{ default: typeof SvelteComponent }> {
+export function getComponent(type: FieldType): Promise<{ default: typeof SvelteComponent<any> }> {
     const map = get(componentRegistry);
     return map[type]?.() ?? Promise.reject(new Error(`Component for "${type}" not found`));
 }

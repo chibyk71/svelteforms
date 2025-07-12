@@ -60,6 +60,8 @@
 		"svelte"
 	],
 	"dependencies": {
-		"@inertiajs/svelte": "^2.0.14"
+		"@inertiajs/svelte": "^2.0.14",
+		"clsx": "^2.1.1",
+		"tailwind-merge": "^3.3.1"
 	}
 }

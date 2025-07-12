@@ -109,6 +109,12 @@ export interface IField<T extends string = 'input' | 'date' | 'textarea' | 'sele
     value?: any;
 
     /**
+     * optional loading state of the field, useful for async operations.
+     * This can be used to show a spinner or disable the field while loading.
+     */
+    loading?: boolean;
+
+    /**
      * Attributes or props passed directly to the rendered input.
      */
     attributes?: Attributes<T>;
