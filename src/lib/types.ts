@@ -147,7 +147,7 @@ export interface IField<T extends string = 'input' | 'date' | 'textarea' | 'sele
 }
 
 export type IFieldProps = IField & {
-    isInvalid: boolean;
+    isInvalid?: boolean;
     float?: boolean;
 };
 

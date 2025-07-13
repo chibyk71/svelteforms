@@ -44,15 +44,11 @@
 			</span>
 		{/if}
 
-		<!-- TODO: replace with the appropriate input type -->
-         {#await InputComponent} 
-            <!-- \ is pending -->
-            
-         {:then Component}
-            <Component.default {name} {...restProps} bind:value {...attributes} {options}  />
-         {:catch error}
-            <!-- \ was rejected -->
-         {/await}
+		{#await InputComponent then Component}
+			<Component.default {name} {...restProps} bind:value {...attributes} {options} />
+		{:catch error}
+			<p class="text-red-500">Error loading component: {error.message}</p>
+		{/await}
 
 		{#if prefix}
 			<span class="absolute top-1/2 left-2 -translate-y-1/2 transform text-slate-400">

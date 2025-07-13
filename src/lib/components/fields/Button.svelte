@@ -1,7 +1,8 @@
 <script lang="ts">
     import { cn } from "$lib/index.js";
-    import type { Snippet } from "svelte";
+    import { getContext, type Snippet } from "svelte";
     import Spinner from "../Spinner.svelte";
+	import type { IForm } from "$lib/types.js";
 
     let { 
         text = 'Submit', 
@@ -24,6 +25,10 @@
         rounded?: boolean; 
     } = $props();
 
+    const form = getContext<IForm>('form');
+
+    const isSubmitting = $form?.processing || loading;
+
     // Define base styles
     const baseStyles = "flex items-center px-4 py-2 text-center text-sm transition-all disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none";
 
@@ -40,7 +45,7 @@
 </script>
 
 <button class={buttonClass} {type} {...restProps}>
-    {#if loading}
+    {#if isSubmitting}
         <Spinner />
     {:else}
         {@render left?.()}
