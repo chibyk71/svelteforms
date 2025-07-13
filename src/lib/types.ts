@@ -171,6 +171,8 @@ interface BaseAttributes {
      */
     id?: string;
 
+    name?: string;
+
     /**
      * Optional placeholder.
      */
@@ -205,6 +207,11 @@ interface BaseAttributes {
      * Spellcheck toggle.
      */
     spellcheck?: boolean;
+
+    /**
+     * Optional 
+    */
+    required?: boolean;
 }
 
 /**
@@ -229,7 +236,7 @@ interface TextareaAttributes extends BaseAttributes {
     cols?: number;
     maxlength?: number;
     minlength?: number;
-    wrap?: 'hard' | 'soft' | 'off';
+    wrap?: 'hard' | 'soft';
 }
 
 /**
@@ -246,6 +253,7 @@ interface SelectAttributes extends BaseAttributes {
 interface CheckboxAttributes extends BaseAttributes {
     value?: string | number | boolean;
     checked?: boolean;
+    name: string;
 }
 
 /**

@@ -8,7 +8,7 @@
 	let {
 		type,
 		name,
-		value = $bindable(''),
+		value = $bindable(null),
 		description,
 		prefix,
 		options,
@@ -45,11 +45,11 @@
 		{/if}
 
 		<!-- TODO: replace with the appropriate input type -->
-         {#await InputComponent}
+         {#await InputComponent} 
             <!-- \ is pending -->
             
          {:then Component}
-            <Component.default />
+            <Component.default {name} {...restProps} bind:value {...attributes} {options}  />
          {:catch error}
             <!-- \ was rejected -->
          {/await}

@@ -1,5 +1,5 @@
 // componentRegistry.ts
-import type { SvelteComponent } from 'svelte';
+import type { Component } from 'svelte';
 import { writable, get } from 'svelte/store';
 
 /** All supported field types */
@@ -16,22 +16,22 @@ export type FieldType =
 /** Type for dynamic import of Svelte components */
 export type FieldComponentMap = Record<
     FieldType,
-    () => Promise<{ default: SvelteComponent }>
+    () => Promise<{ default: Component }>
 >;
 
-const asSvelteComponent = <T extends SvelteComponent>(component: unknown) =>
+const asSvelteComponent = <T extends Component>(component: unknown) =>
   component as { default: T };
 
 /** Default component map */
 const defaultComponentMap: FieldComponentMap = {
     input: () => import('./components/fields/Input.svelte').then(asSvelteComponent),
-    // textarea: () => import('./fields/Textarea.svelte'),
+    textarea: () => import('./components/fields/TextArea.svelte').then(asSvelteComponent),
     select: () => import('./components/fields/Select.svelte').then(asSvelteComponent),
-    // checkbox: () => import('./fields/Checkbox.svelte'),
-    // radio: () => import('./fields/Radio.svelte'),
-    // file: () => import('./fields/FileInput.svelte'),
-    // autocomplete: () => import('./fields/Autocomplete.svelte'),
-    // date: () => import('./fields/Input.svelte') // Default to Input; can be swapped
+    checkbox: () => import('./components/fields/CheckBox.svelte').then(asSvelteComponent),
+    radio: () => import('./components/fields/Radio.svelte').then(asSvelteComponent),
+    file: () => import('./components/fields/FileInput.svelte').then(asSvelteComponent),
+    autocomplete: () => import('./components/fields/Autocomplete.svelte'),
+    date: () => import('./components/fields/Input.svelte') // Default to Input; can be swapped
 };
 
 /** Writable store to hold the current component map */
@@ -52,7 +52,7 @@ export function setComponentMap(customMap: Partial<FieldComponentMap>) {
  * Get the component loader for a given field type.
  * @param type - Field type to load component for
  */
-export function getComponent(type: FieldType): Promise<{ default: typeof SvelteComponent<any> }> {
+export function getComponent(type: FieldType): Promise<{ default: Component<any> }> {
     const map = get(componentRegistry);
     return map[type]?.() ?? Promise.reject(new Error(`Component for "${type}" not found`));
 }
