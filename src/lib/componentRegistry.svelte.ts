@@ -1,6 +1,6 @@
 // componentRegistry.ts
+import type { SvelteComponent } from 'svelte';
 import { writable, get } from 'svelte/store';
-import type { Component } from 'svelte';
 
 /** All supported field types */
 export type FieldType =
@@ -16,17 +16,17 @@ export type FieldType =
 /** Type for dynamic import of Svelte components */
 export type FieldComponentMap = Record<
     FieldType,
-    () => Promise<{ default: typeof Component<any> }>
+    () => Promise<{ default: SvelteComponent }>
 >;
 
-const asSvelteComponent = <T extends typeof Component>(component: any) =>
+const asSvelteComponent = <T extends SvelteComponent>(component: unknown) =>
   component as { default: T };
 
 /** Default component map */
 const defaultComponentMap: FieldComponentMap = {
     input: () => import('./components/fields/Input.svelte').then(asSvelteComponent),
     // textarea: () => import('./fields/Textarea.svelte'),
-    // select: () => import('./fields/Select.svelte'),
+    select: () => import('./components/fields/Select.svelte').then(asSvelteComponent),
     // checkbox: () => import('./fields/Checkbox.svelte'),
     // radio: () => import('./fields/Radio.svelte'),
     // file: () => import('./fields/FileInput.svelte'),

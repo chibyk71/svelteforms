@@ -262,6 +262,10 @@ export interface AutoCompleteItems {
     value: any;
 }
 
+export type InputProps<T extends string = 'input' | 'date' | 'textarea' | 'select' | 'checkbox' | 'radio' | 'file' | 'autocomplete'> = {
+    value: any;
+} & Attributes<T>
+
 export interface IPrefix {
     tag: string;
     classes?: string[];
