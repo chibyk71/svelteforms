@@ -2,7 +2,7 @@
     import { cn } from "$lib/index.js";
     import { getContext, type Snippet } from "svelte";
     import Spinner from "../Spinner.svelte";
-	import type { IForm } from "$lib/types.js";
+	import type { ButtonProp, IForm } from "$lib/types.js";
 
     let { 
         text = 'Submit', 
@@ -14,16 +14,7 @@
         variant = 'standard', 
         rounded = false, 
         ...restProps 
-    }: { 
-        text?: string; 
-        class?: string; 
-        left?: Snippet; 
-        right?: Snippet; 
-        loading: boolean; 
-        type?: "submit" | "button" | "reset" | null | undefined; 
-        variant?: 'standard' | 'outline' | 'text' | 'gradient'; 
-        rounded?: boolean; 
-    } = $props();
+    }: ButtonProp = $props();
 
     const form = getContext<IForm>('form');
 

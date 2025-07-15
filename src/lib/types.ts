@@ -43,14 +43,9 @@ export interface IFormProps<T = Record<string, any>> {
     form: IForm;
 
     /**
-     * Submit button configuration (text, classes, etc.).
+     * Optional button props to be used in redering buttons at the footer of the form
      */
-    btnSubmit?: IBtnSubmit;
-
-    /**
-     * Reset button configuration.
-     */
-    btnReset?: IBtnReset;
+    buttons?: ButtonProp[];
 
     /**
      * Whether to enable real-time syncing (optional).
@@ -83,6 +78,23 @@ export interface IFormProps<T = Record<string, any>> {
      * Optional action URL for the form submission.
      */
     action: string;
+
+    /**
+     * 
+     */
+    footer?: Snippet;
+}
+
+export type ButtonProp = {
+    text?: string;
+    class?: string;
+    left?: Snippet;
+    right?: Snippet;
+    loading?: boolean;
+    type?: "submit" | "button" | "reset" | null | undefined;
+    variant?: 'standard' | 'outline' | 'text' | 'gradient';
+    rounded?: boolean;
+    onclick?: (e: MouseEvent) => void;
 }
 
 /**
@@ -251,7 +263,7 @@ interface SelectAttributes extends BaseAttributes {
  * Attributes for checkbox and radio inputs.
  */
 interface CheckboxAttributes extends BaseAttributes {
-    value?: string | number | boolean;
+    value?: string | number | boolean| null;
     checked?: boolean;
     name: string;
 }
@@ -276,21 +288,5 @@ export type InputProps<T extends string = 'input' | 'date' | 'textarea' | 'selec
 
 export interface IPrefix {
     tag: string;
-    classes?: string[];
-}
-
-export interface ISubmit {
-    type: string;
-    text: string;
-    classes: string[];
-}
-
-export interface IBtnSubmit {
-    text?: string;
-    classes?: string[];
-}
-
-export interface IBtnReset {
-    text?: string;
     classes?: string[];
 }
