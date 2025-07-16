@@ -13,6 +13,7 @@
         type = 'submit', 
         variant = 'standard', 
         rounded = false, 
+        children,
         ...restProps 
     }: ButtonProp = $props();
 
@@ -42,7 +43,11 @@
         {@render left?.()}
     {/if}
 
-    {text}
+    {#if children}
+        {@render children()}
+    {:else}
+        <span>{text}</span>
+    {/if}
 
     {@render right?.()}
 </button>

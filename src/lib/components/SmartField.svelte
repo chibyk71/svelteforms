@@ -31,15 +31,13 @@
 <div class="relative w-full max-w-sm min-w-[200px] [not:first-child]:mt-4">
 	<Label {id} {label} {float} />
 
-	<div class="relative">
+	<div class="flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 has-[input:focus-within]:outline-2 has-[input:focus-within]:-outline-offset-2 has-[input:focus-within]:outline-indigo-600">
 		{#if loading}
-			<span
-				class="absolute top-1/2 right-2 flex -translate-y-1/2 transform items-center justify-center"
-			>
+			<span class="shrink-0 text-slate-400">
 				<Spinner />
 			</span>
 		{:else if suffix}
-			<span class="absolute top-1/2 right-2 -translate-y-1/2 transform text-slate-400">
+			<span class="shrink-0 text-slate-400">
 				{@render suffix()}
 			</span>
 		{/if}
@@ -51,7 +49,7 @@
 		{/await}
 
 		{#if prefix}
-			<span class="absolute top-1/2 left-2 -translate-y-1/2 transform text-slate-400">
+			<span class="shrink-0 text-slate-400">
 				{@render prefix()}
 			</span>
 		{/if}

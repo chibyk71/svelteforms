@@ -95,6 +95,7 @@ export type ButtonProp = {
     variant?: 'standard' | 'outline' | 'text' | 'gradient';
     rounded?: boolean;
     onclick?: (e: MouseEvent) => void;
+    children?: Snippet; 
 }
 
 /**
@@ -274,6 +275,7 @@ interface CheckboxAttributes extends BaseAttributes {
 interface FileAttributes extends BaseAttributes {
     accept?: string;
     multiple?: boolean;
+    files: FileList;
 }
 
 
