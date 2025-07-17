@@ -26,77 +26,163 @@ export type IForm = Writable<InertiaForm<Record<string, any>>>
  * @property {'POST' | 'GET' | 'PUT' | 'PATCH' | 'DELETE'} method - HTTP method for the form submission.
  * @property {string} action - Optional action URL for the form submission.
  */
+
 export interface IFormProps<T = Record<string, any>> {
     /**
      * Optional identifier for the form.
+     * This can be used to uniquely identify the form instance, especially when dealing with multiple forms on the same page.
      */
     form_name?: string;
 
     /**
      * List of form field definitions to render.
+     * Each field should conform to the IField interface, which defines the structure and properties of the form fields.
      */
     fields: IField[];
 
     /**
      * Inertia form store created with useForm<T>().
+     * This object manages the form state and handles submissions, validation, and other form-related logic.
      */
-    form: IForm;
+    form?: IForm;
 
     /**
-     * Optional button props to be used in redering buttons at the footer of the form
+     * Optional data object to pre-fill the form fields.
+     * This can be used to set initial values for the form fields when the form is rendered.
+     */
+    data?: T;
+
+    /**
+     * Optional button props to be used in rendering buttons at the footer of the form.
+     * This allows for customization of button appearance and behavior, such as text, styles, and click handlers.
      */
     buttons?: ButtonProp[];
 
     /**
      * Whether to enable real-time syncing (optional).
+     * If true, the form will automatically sync its state with the server as the user makes changes.
      */
     realtime?: boolean;
 
     /**
      * Optional CSS classes to apply to the <form> element.
+     * This allows for custom styling of the form element using Tailwind CSS or other CSS frameworks.
      */
     class?: string;
 
     /**
-     * Optional HTML attributes to apply to the <form> element.
+     * Optional reference to the HTMLFormElement.
+     * This can be used to directly manipulate the form element or access its properties and methods.
      */
     ref: HTMLFormElement | null;
 
     /**
      * Optional children to render inside the form.
+     * This allows for additional content, such as headings or instructions, to be included within the form.
      */
     children?: Snippet;
 
     /**
      * HTTP method for the form submission.
-     * This should match the methods supported by Inertia.
-     * Defaults to POST.
+     * This should match the methods supported by Inertia. Defaults to POST.
+     * Common methods include POST for creating resources, GET for retrieving data, and PUT/PATCH for updating resources.
      */
     method?: 'POST' | 'GET' | 'PUT' | 'PATCH' | 'DELETE';
 
     /**
      * Optional action URL for the form submission.
+     * This is the endpoint where the form data will be sent when the form is submitted.
      */
     action: string;
 
     /**
-     * 
+     * Optional header content to render above the form.
+     * This can be used to display a title or instructions related to the form.
+     */
+    header?: Snippet | {title:  string, subtitle?: string};
+
+    /**
+     * Optional footer content to render below the form.
+     * This can be used to display additional information or actions related to the form, such as disclaimers or links.
      */
     footer?: Snippet;
 }
 
+
+/**
+ * ButtonProp defines the properties for a customizable button component.
+ */
 export type ButtonProp = {
+    /**
+     * Optional text to display on the button.
+     * If not provided, the button may render children instead.
+     */
     text?: string;
+
+    /**
+     * Optional CSS classes to apply to the button.
+     * This allows for custom styling using Tailwind CSS or other CSS frameworks.
+     */
     class?: string;
+
+    /**
+     * Optional snippet to render on the left side of the button.
+     * This can be used to include icons or other elements alongside the button text.
+     */
     left?: Snippet;
+
+    /**
+     * Optional snippet to render on the right side of the button.
+     * This can be used for additional icons or elements that should appear after the button text.
+     */
     right?: Snippet;
+
+    /**
+     * Optional loading state for the button.
+     * If true, the button may display a loading spinner or change its appearance to indicate that an action is in progress.
+     */
     loading?: boolean;
+
+    /**
+     * Optional type of the button.
+     * This determines the button's behavior in forms. Common values include:
+     * - "submit": Submits the form.
+     * - "button": A generic button with no default behavior.
+     * - "reset": Resets the form fields to their initial values.
+     * Defaults to "submit" if not specified.
+     */
     type?: "submit" | "button" | "reset" | null | undefined;
+
+    /**
+     * Optional variant for styling the button.
+     * This can be used to apply different visual styles, such as:
+     * - 'standard': Default button style.
+     * - 'outline': Button with an outlined border.
+     * - 'text': Button with no background, typically used for text links.
+     * - 'gradient': Button with a gradient background.
+     */
     variant?: 'standard' | 'outline' | 'text' | 'gradient';
+
+    /**
+     * Optional flag to indicate if the button should have rounded corners.
+     * If true, the button will have a rounded appearance; otherwise, it will have sharp corners.
+     */
     rounded?: boolean;
+
+    /**
+     * Optional click event handler for the button.
+     * This function will be called when the button is clicked, allowing for custom behavior.
+     * @param e - The MouseEvent object representing the click event.
+     */
     onclick?: (e: MouseEvent) => void;
+
+    /**
+     * Optional snippet to render custom content inside the button.
+     * This allows for more complex button content, such as icons or formatted text.
+     */
     children?: Snippet; 
 }
+
 
 /**
  * Field definition used to render dynamic form inputs.
