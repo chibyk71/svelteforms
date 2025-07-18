@@ -8,7 +8,7 @@
     const form = getContext<IForm | null>('form');
 </script>
 
-<div class="">
+<div class="block w-full">
     {#each fields as field}
         <SmartField {...field} />
     {/each}
