@@ -7,11 +7,13 @@
 <div class="relative flex flex-col gap-1 p-2">
 	{#each options as option}
 		{@render checkbox({...attr, option})}
+	{:else}
+		<p>No options found</p>
 	{/each}
 </div>
 
 {#snippet checkbox({ id, checked, disabled, option, ...rest }: Omit<InputProps<'checkbox'>, 'value'> & {option: {label: string, value: any}})}
-	<div role="button" class="flex w-full items-center rounded-lg p-0 transition-all hover:bg-slate-100 focus:bg-slate-100 active:bg-slate-100">
+	<div role="button" class="flex w-full items-center rounded-lg p-0 transition-all">
 		<label for="check-list-group-{id}" class="flex w-full cursor-pointer items-center px-3 py-2">
 			<div class="inline-flex items-center">
 				<label class="relative flex cursor-pointer items-center" for="check-list-group-{id}">
@@ -34,7 +36,7 @@
 						</svg>
 					</span>
 				</label>
-				<label class="ml-2 cursor-pointer text-sm text-slate-600" for="check-list-group-{id}">
+				<label class="ml-2 cursor-pointer text-sm text-slate-600 dark:text-slate-200" for="check-list-group-{id}">
                     {option.label}
 				</label>
 			</div>
